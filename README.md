@@ -1,4 +1,5 @@
-# data_visualization_using_d3
+# Data-Visualization-d3-Project
+
 Explanatory data visualization using D3 and dimple
 
 ### Summary : 
