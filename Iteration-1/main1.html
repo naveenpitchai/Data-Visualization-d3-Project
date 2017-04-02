@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+<head> 
+
+<script src='http://d3js.org/d3.v4.min.js'> </script>
+<script src='http://dimplejs.org/dist/dimple.v2.0.0.min.js'></script>
+<script type = 'text/javascript' src='main1.js'> </script>
+<link rel='stylesheet' type = 'text/css' href='main1.css'>
+
+</head>
+
+<body>
+
+<script>
+   d3.csv('co2_emission.csv', draw);
+   </script>
+
+</body>
+</html>
+
+
+ <!--
+
+ Step1 - Load dataset using d3.csv
+ Step2 - Transform the data (see the code)
+ Step3 - Define variables of width, height, margin to use
+ step4 - Append SVG -> main group
+ step5 - Define axes
+
+
+ -->
