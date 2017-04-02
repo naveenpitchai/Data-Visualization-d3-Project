@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src='http://d3js.org/d3.v4.min.js'></script>
+        <script src='http://dimplejs.org/dist/dimple.v2.0.0.min.js'></script>
+        <script type='text/javascript' src='main2.js'></script>
+        <link rel='stylesheet' type='text/css' href='main2.css'>
+    </head>
+    <body>
+        <script>
+        d3.csv('data/Co2-emission-ktpergdp.csv', draw);
+        </script>
+    <header id='mainheader'><img id='infoimg' style='object-fit: none; margin: 0 5px 0px 0px' src='img/Info-20.png'>Co2 Emission for World Countries (Metric tons per capita)</header>
+<svg class='mainsvg'></svg>
+<div id='mainregion'>
+    <div id='formdiv'>
+        <form id='option1'>
+            <label><input type='radio' class='dataoption' name='button' value='tonspercapita' checked> Tons/Capita</label>
+            <label>
+            <input type='radio' class='dataoption' name='button' value='totaltons'> Total Metric Tons</label>
+        </form>
+        <form id='option2'>
+            <label>
+            <input type='radio' class='scaleoption' name='scale' value='fixed' checked> Fixed Scale</label>
+            <label>
+            <input type='radio' class='scaleoption' name='scale' value='relative'> Relative Scale</label>
+        </form>
+        <img id='clearimg' style='object-fit: none; margin: 0 5px 10px 5px' src='img/Delete-20.png'>
+        <div class='tooltips'>Reset plot</div>
+        <!--<img id='infoimg1' style='object-fit: none; margin: 0 5px 10px 0px' src='Info-20.png'>-->
+    </div>
+    <div id='mainheading'>
+        <div class='infohead'>Region</div>
+        <div class='infohead countryhead'>Countries</div>
+    </div>
+
+</div>
+
+
+</body>
+</html>
+<!--
+Step1 - Load dataset using d3.csv
+Step2 - Transform the data (see the code)
+Step3 - Define variables of width, height, margin to use
+step4 - Append SVG -> main group
+step5 - Define axes
+-->
