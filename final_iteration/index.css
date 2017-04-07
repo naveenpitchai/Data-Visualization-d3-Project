@@ -1,4 +1,4 @@
-.line, .clickedpath {
+.line, .clickedpath, .clickedcountry {
   fill: none;
 }
 
@@ -127,6 +127,11 @@ position: absolute;*/
   float: left; */
   font-size: 15px;
   background-color: #bab4ae;
+  position: fixed;
+  left: 6vw;
+  top: 7vw;
+
+ 
 }
 
 .tooltips {
@@ -179,9 +184,19 @@ font-size: 13px; ;
   left: 60vw;
   top: 4vw; 
 
-}
+} 
+
+@media (min-width: 573px) {
+  #helppane { 
+
+  position: fixed;
+  left: 6vw;
+  top: 4vw;
+
+ }
 
 @media (min-width: 1900px) {
+
   #mainregion  {
 
   position: fixed;

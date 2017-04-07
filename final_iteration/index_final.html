@@ -25,10 +25,10 @@
                 <input type='radio' class='dataoption' name='button' value='totaltons'> Total Metric Tons</label>
             </form>
             <form id='option2'>
+            <label>
+                <input type='radio' class='scaleoption' name='scale' value='relative' checked> Relative Scale</label>
                 <label>
-                <input type='radio' class='scaleoption' name='scale' value='fixed' checked> Fixed Scale</label>
-                <label>
-                <input type='radio' class='scaleoption' name='scale' value='relative'> Relative Scale</label>
+                <input type='radio' class='scaleoption' name='scale' value='fixed'> Fixed Scale</label>
             </form>
             <form id='option3'>
                 <label><input type='checkbox' class='infocheckbox' unchecked>Show Info</label>
@@ -47,10 +47,3 @@
     </script>
 </body>
 </html>
-<!--
-Step1 - Load dataset using d3.csv
-Step2 - Transform the data (see the code)
-Step3 - Define variables of width, height, margin to use
-step4 - Append SVG -> main group
-step5 - Define axes
--->
