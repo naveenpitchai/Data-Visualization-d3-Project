@@ -32,7 +32,7 @@ margin-bottom: 10px;
   margin-right: none;
   display: block;
   float: left;
-  position:fixed;
+
 }
 
 
@@ -169,7 +169,7 @@ Helvetica, Arial, Verdana, sans-serif;
 #checkhelp { float: right; }
 
 
-.trendtext { 
+.trendtext, .trendtext2 { 
 
 font-family: menlo, futura,"Lucida Grande", "Lucida Sans Unicode" ;
 font-size: 13px; ;
@@ -178,8 +178,6 @@ font-size: 13px; ;
 
 @media (min-width: 1830px) {
   #mainregion  {
-
-  position: fixed;
 
   left: 60vw;
   top: 4vw; 
@@ -199,8 +197,6 @@ font-size: 13px; ;
 
   #mainregion  {
 
-  position: fixed;
-
   left: 60vw;
   top: 4vw; 
 
@@ -211,7 +207,6 @@ font-size: 13px; ;
 @media (min-width: 2250px) {
   #mainregion  {
 
-  position: fixed;
   left: 50vw;
   top: 4vw;
     

@@ -183,10 +183,9 @@ function draw(data) {
 
 
     g.append('g').attr('transform', 'translate(0,' + (height + 5) + ')').
-    call(d3.axisBottom(x)).append('text').
+    call(d3.axisBottom(x).tickFormat(d3.format('d'))).append('text').
     attr('transform', 'translate(' + (width / 2) + ',' + 30 + ')').
     text('Years').attr('fill', '#000').attr('class', 'axistext');
-
 
 
     var yaxis = g.append('g').call(d3.axisLeft(y)).
@@ -505,6 +504,10 @@ function draw(data) {
         attr('transform', 'translate(-100,50)').attr('class', 'trendtext').
         transition().duration(500).attr('transform', 'translate(100,50)');
 
+        d3.select('.mainsvg').append('g').
+        attr('transform','translate(2000,400)').attr('class','trendtext2').
+        transition().duration(2000).attr('transform','translate(500,400)')
+
 
         if (dataoption && scaleoption) {
 
@@ -541,6 +544,30 @@ function draw(data) {
             append('tspan').text('which had a whopping ').append('tspan').text('increase of 1000% since 1970').
             style('font-weight', 'bold').style('fill', '#a50404');
 
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,50)').
+            append('tspan').text('This astronomical increase can be attributed to the below practices,')
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,70)').
+            append('tspan').text("1. India's automobile emission standards are not at par with world countries")
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,90)').
+            append('tspan').text('2. Fuel and biomass burning for domestic usage due to the lack of proper electricity')
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,110)').
+            append('tspan').text('3. Traffic congestion due to evergrowing population')
+
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,110)').
+            append('tspan').text('3. Traffic congestion due to evergrowing population')
+
+            d3.select('.trendtext2').append('text').attr('transform','translate(0,20)').
+            append('tspan').text('Other countries in this region are small economic and had considerably')
+
+            d3.select('.trendtext2').append('text').attr('transform','translate(0,40)').
+            append('tspan').text('less impact over the years.')
+
+             
+
         }
     }
 
@@ -552,6 +579,7 @@ function draw(data) {
 
 
         d3.select('.trendtext').remove();
+        d3.select('.trendtext2').remove();
 
         d3.select('.mainsvg').append('g').
         attr('transform', 'translate(-100,50)').attr('class', 'trendtext').
@@ -568,6 +596,45 @@ function draw(data) {
             text('alarmingly steep increase since 2002').style('font-style','italic').
             style('fill','#a50404').style('font-weight','bold');
 
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,50)').
+            append('tspan').text('This steady and steep increase in the case of China can be \
+                explained by below facts,')
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,80)').
+            append('tspan').text("1. China is the largest consumer of coal in the world, \
+                73% of China's energy comes from coal")
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,100)').
+            append('tspan').text("2. China is the outsourced manufacturing hub of the world, which prompts \
+                enormous energy needs.")
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(25,120)').
+            append('tspan').text("More energy needs equals more emission.")
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,150)').
+            append('tspan').text("Japan has maintained almost the same emission over the years \
+             despite its technological advancements")
+
+            
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,170)').
+            append('tspan').text("This low trend can be attributed the infamous ").append('tspan').
+            text('Pollution Diet of 1970 -').style('font-style','italic').
+            style('fill','#a50404').style('font-weight','bold');
+
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,190)').
+            append('tspan').text("14 laws passed to curb pollution, which was rampant in 1960's");
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,220)').
+            append('tspan').text("Australia,despite being a huge land mass kept its population on check ");
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,250)').
+            append('tspan').text("Other countries in this region are relatively small and the emission \
+                rates has been");
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,270)').
+            append('tspan').text("same through out the years");
+
         }
     }
 
@@ -580,6 +647,7 @@ function draw(data) {
 
 
         d3.select('.trendtext').remove();
+        d3.select('.trendtext2').remove();
 
         d3.select('.mainsvg').append('g').
         attr('transform', 'translate(-100,50)').attr('class', 'trendtext').
@@ -617,6 +685,7 @@ function draw(data) {
 
 
         d3.select('.trendtext').remove();
+        d3.select('.trendtext2').remove();
 
         d3.select('.mainsvg').append('g').
         attr('transform', 'translate(2000,50)').attr('class', 'trendtext').
@@ -643,6 +712,7 @@ function draw(data) {
         var scaleoption = d3.selectAll('.scaleoption')._groups[0][1].checked;
 
         d3.select('.trendtext').remove();
+        d3.select('.trendtext2').remove();
 
         d3.select('.mainsvg').append('g').
         attr('transform', 'translate(2000,50)').attr('class', 'trendtext').
@@ -674,6 +744,7 @@ function draw(data) {
         var scaleoption = d3.selectAll('.scaleoption')._groups[0][1].checked;
 
         d3.select('.trendtext').remove();
+        d3.select('.trendtext2').remove();
 
         d3.select('.mainsvg').append('g').
         attr('transform', 'translate(-100,50)').attr('class', 'trendtext').
@@ -712,6 +783,7 @@ function draw(data) {
         var scaleoption = d3.selectAll('.scaleoption')._groups[0][1].checked;
 
         d3.select('.trendtext').remove();
+        d3.select('.trendtext2').remove();
 
         d3.select('.mainsvg').append('g').
         attr('transform', 'translate(-100,50)').attr('class', 'trendtext').
@@ -724,6 +796,10 @@ function draw(data) {
             append('tspan').html('Latin america, with its large concentration of developing countries,')
             d3.select('.trendtext').append('text').attr('transform', 'translate(0,20)').
             append('tspan').html('is all upwards in a constant manner over the years.');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,50)').
+            append('tspan').html('Especially Brazil,Venezuela,Argentina,Colombia,Chile has seen the highest \
+                increase of any countries');
 
         }
 
