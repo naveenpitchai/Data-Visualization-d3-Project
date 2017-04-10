@@ -18,6 +18,7 @@ var data_type = 'capita';
 var filtered_avg = null;
 var prevpath_clicked = null;
 var prevcountryclass = null;
+var regionsdiv = null;
 
 
 
@@ -370,6 +371,8 @@ function draw(data) {
 
     function summary_info(avg_data, x, text, dur) {
 
+        d3.select('.summarysvg').remove();
+
 
         if (!d3.selectAll('.dataoption')._groups[0][0].checked &&
             !d3.selectAll('.scaleoption')._groups[0][1].checked &&
@@ -428,25 +431,43 @@ function draw(data) {
 
         var del = d3.transition().duration(dur);
 
+        svg = d3.select('#mainregion').append('svg').attr('width',600).
+        attr('height',300).attr('class','summarysvg')
+
+        if(regionsdiv !== null) { 
+
+            h = d3.select('.countrydiv').node().getBoundingClientRect().height;
+
+            svg.attr('transform','translate(540,-' + (h+30) + ')')
+
+            
+
+        } else { 
+
+            svg.attr('transform','translate(550,-280)')
+
+
+        }
+
 
         svg.append('text').text('Top Polluting countries').attr('id', 'summarytext').
         attr('transform', 'translate(-' + x + ',50)').style('fill', '#a50404').
         style('font-weight', 'bold').
-        transition(del).attr('transform', 'translate(' + x + ',' + y + ')');
+        transition(del).attr('transform', 'translate(0,20)');
 
-        summary_g = svg.append('g').attr('transform', 'translate(-' + x + ',' + y + ')').
+        summary_g = svg.append('g').attr('transform', 'translate(-50,0)').
         attr('id', 'summaryheader');
 
-        summary_g.transition(del).attr('transform', 'translate(' + x + ',' + y + ')');
+        summary_g.transition(del).attr('transform', 'translate(0,0)');
 
-        row1 = summary_g.append('text').attr('class', 'summaryrows').attr('dy', '2em');
+        row1 = summary_g.append('text').attr('class', 'summaryrows').attr('dy', '3.3em');
 
         row1.append('tspan').text('Countries');
         row1.append('tspan').text('Average Emission ' + text).attr('dx', '3em');
 
         //Add data rows below
 
-        var summary_data = svg.append('g').attr('transform', 'translate(' + x + ',' + (y + 50) + ')').
+        var summary_data = svg.append('g').attr('transform', 'translate(0,50)').
         attr('id', 'summaryg').selectAll('text').
         data(avg_data.slice(0, 7));
 
@@ -832,7 +853,7 @@ function draw(data) {
 
         d3.select('.countrydiv').remove();
 
-        var regionsdiv = d3.select('#datadiv').append('div').
+        regionsdiv = d3.select('#datadiv').append('div').
         attr('class', 'countrydiv');
 
         var filtered = countries.filter(function(d) {
@@ -849,11 +870,7 @@ function draw(data) {
             return b.avg - a.avg;
         })
 
-        if (d3.select('.infocheckbox')._groups[0][0].checked) {
-
-            summary_info(filtered_avg, 100, '', 1000);
-        }
-
+        
         //
 
         regionsdiv.selectAll('div').data(filtered).
@@ -862,6 +879,15 @@ function draw(data) {
         }).attr('class', 'countrylist');
 
         prevregions = regionsdiv;
+
+        if (d3.select('.infocheckbox')._groups[0][0].checked) {
+
+            summary_info(filtered_avg, 100, '', 1000);
+        }
+
+
+
+
 
 
         var filtered_y_min = d3.min(filtered, function(d) {
@@ -960,19 +986,17 @@ function draw(data) {
 
     regionbuttons.on('click', function(d, i) {
 
-        stateout = true;
+        debugger;
 
-        //debugger;
+        stateout = true;
 
         global_div_index = i ;//storing values here to use later.
         global_region = d;
 
-        //
-
         //if there is a previous selection remove the background 
 
         if (prevselection !== null) {
-            //
+            
             prevselection.style.backgroundColor = '';
         }
 
@@ -1254,6 +1278,7 @@ function draw(data) {
 
 
             d3.selectAll('.textpanes').remove();
+            d3.selectAll('.infopanes').remove();
 
             d3.selectAll('.countrypath').style('stroke-opacity', 0.2).style('stroke-width', 1);
             d3.selectAll('.countrycircles').style('opacity', 0.2);
