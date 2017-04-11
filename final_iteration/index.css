@@ -156,7 +156,7 @@ Helvetica, Arial, Verdana, sans-serif;
   position: absolute;
   opacity: 0;
   background-color: #bab4ae;
-  transform: translate(400px,-25px);
+  transform: translate(400px,-10px);
   font-family: futura, "Lucida Grande", "Lucida Sans Unicode",
 Helvetica, Arial, Verdana, sans-serif;
 -webkit-animation-name : infoanim;
@@ -166,36 +166,53 @@ animation-duration: 10s;
 
 }
 
-@-webkit-keyframes infoanim { 
 
-    0% {left:0px; opacity: 1;}
-    5%   {left:20px; opacity: 0.5;}
-    15%   {left:0px; opacity: 1;}
-    25%   {left:20px; opacity: 0.5;}
-    35%   {left:0px; opacity: 1;}
-    45%   {left:20px; opacity: 0.5;}
-    55%   {left:0px; opacity: 1;}
-    65%   {left:20px; opacity: 0.5;}
-    75%   {left:0px; opacity: 1;}
-    85%  {left:20px;opacity: 0.5;}
-    95%  {left:0px;opacity: 1;}
-    100% {opacity: 0.5;}
-}
 
 @-webkit-keyframes infoanim { 
 
     0% {left:0px; opacity: 1;}
-    5%   {left:20px; opacity: 0.7;}
-    15%   {left:0px; opacity: 1;}
-    25%   {left:20px; opacity: 0.7;}
+    5%   {left:20px; opacity: 0.8;}
+    10%   {left:0px; opacity: 1;}
+    20%   {left:20px; opacity: 0.8;}
+    25%   {left:0px; opacity: 0.8;}
+    30%   {left:20px; opacity: 1;}
     35%   {left:0px; opacity: 1;}
-    45%   {left:20px; opacity: 0.7;}
+    40%   {left:20px; opacity: 0.8;}
+    45%   {left:0px; opacity: 0.8;}
+    50%   {left:20px; opacity: 1;}
     55%   {left:0px; opacity: 1;}
-    65%   {left:20px; opacity: 0.7;}
-    75%   {left:0px; opacity: 1;}
-    85%  {left:20px;opacity: 0.7;}
+    60%  {left:20px;opacity: 0.8;}
+    65%  {left:0px;opacity: 0.8;}
+    70%  {left:20px;opacity: 1;}
+    75%  {left:0px;opacity: 1;}
+    80%  {left:20px;opacity: 0.8;}
+    85%  {left:0px;opacity: 0.8;}
+    90%  {left:20px;opacity: 1;}
     95%  {left:0px;opacity: 1;}
-    100% {opacity: 0.7;}
+    100% {opacity: 0.8;} }
+
+@keyframes infoanim { 
+
+    0% {left:0px; opacity: 1;}
+    5%   {left:20px; opacity: 0.8;}
+    10%   {left:0px; opacity: 1;}
+    20%   {left:20px; opacity: 0.8;}
+    25%   {left:0px; opacity: 0.8;}
+    30%   {left:20px; opacity: 1;}
+    35%   {left:0px; opacity: 1;}
+    40%   {left:20px; opacity: 0.8;}
+    45%   {left:0px; opacity: 0.8;}
+    50%   {left:20px; opacity: 1;}
+    55%   {left:0px; opacity: 1;}
+    60%  {left:20px;opacity: 0.8;}
+    65%  {left:0px;opacity: 0.8;}
+    70%  {left:20px;opacity: 1;}
+    75%  {left:0px;opacity: 1;}
+    80%  {left:20px;opacity: 0.8;}
+    85%  {left:0px;opacity: 0.8;}
+    90%  {left:20px;opacity: 1;}
+    95%  {left:0px;opacity: 1;}
+    100% {opacity: 0.8;}
 }
 
 #helpg { font-size: 15px; color: #a30404;}
