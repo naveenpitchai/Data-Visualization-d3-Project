@@ -18,8 +18,8 @@ Below summary of insights can be learned from the data and plot
 
 * Some countries like ***Brazil,China,India,Saudi,Iran*** had humble beginnings and grew to be the top polluter,in some cases over 1000%, largely due to   the large scale burning of fossil fuels particularly ***Coal*** for energy needs and outdated environmental practice.
 
-* Some small countries, but big economies such as ***Qatar,Luxemborugh,Trinidad&Tobago,Aruba,Bahamas,Kuwait*** had higher 
-than average emissions/capita rivaling huge countries.
+* Some small countries, but big economies such as ***Qatar,Luxemborugh,Trinidad&Tobago,Aruba,Bahamas,Kuwait*** 
+had higher than average emissions/capita rivaling huge countries.
 
 * Some 148 countries have made pledges,in 2015 Paris agreement, to cut its emissions in in 12-17 years. Projections for some of the top pledges has been discussed in a separate section.
 
