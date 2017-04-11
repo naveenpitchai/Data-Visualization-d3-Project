@@ -2,7 +2,7 @@
 
 Explanatory data visualization using D3 and dimple
 
-### Summary : 
+>### Summary : 
 
 This data viz. shows a comprehensive look on co2 emission by world countries between 1970 - 2014. The Co2 emissions are subjective since not every country is made equal and it depends on various factors, so this visulaization looks at the emission in terms of sheer volume in tonnes and emission per capita. Users can interact with the plot by selecting the type of plot, scales and a particular region they wish to analyze. plot can be used to understand the effect of industrial developments in the developed countries and the effect of climate change initiatives in developed countries.  
 
@@ -31,7 +31,7 @@ Summary info - Summary info was created to provide a summary of a particular reg
 
 Help Info - This decision was made to provide users on information to make most out of the plot and various animations it uses to get the point across. 
 
->### **Feedback :**
+>### Feedback :
 
 1. The plot has too many lines to dissect and access a particular line of a country, emission value in a particular year. 
 
@@ -52,7 +52,7 @@ b, In European countries a clear trend of downward emission due to their efforts
 
 c, Summary info are added for each region to indicate important story.
 
-### Resources :
+>### Resources :
 
 https://gist.github.com/mbostock/2565344
 http://bl.ocks.org/ChrisJamesC/5896521/83d7c5c04f7d031d3c71b4d6fd5b5193366d9fed
