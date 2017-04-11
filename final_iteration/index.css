@@ -170,14 +170,13 @@ Helvetica, Arial, Verdana, sans-serif;
 #checkhelp { float: right; }
 
 
-.trendtext, .trendtext2 { 
+.trendtext, .trendtext2, .trendtextfuture { 
 
 font-family: menlo, futura,"Lucida Grande", "Lucida Sans Unicode" ;
 font-size: 13px; ;
  }
 
  .summarysvg { position: relative; }
-
 
 
 @media (min-width: 1830px) {

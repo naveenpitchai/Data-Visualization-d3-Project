@@ -297,7 +297,7 @@ function draw(data) {
                         update(global_region, global_div_index);
                     }
                     eventhandlers();
-                    add_general();
+                    if(d3.select('.infocheckbox')._groups[0][0].checked) {info_trigger_helper(global_div_index);};
                 }
             })
     } else {
@@ -343,7 +343,7 @@ function draw(data) {
         }
 
         eventhandlers();
-        add_general();
+        if(d3.select('.infocheckbox')._groups[0][0].checked) {info_trigger_helper(global_div_index);};
 
     }
 
@@ -761,15 +761,6 @@ function draw(data) {
             d3.select('.trendtext').append('text').attr('transform', 'translate(140,110)')
             .append('tspan').text('majorly due to the increased efforts to cutback emissions.');
 
-             
-
-
-
-
-
-
-
-
         }
 
     }
@@ -1101,8 +1092,9 @@ function draw(data) {
         d3.select('.trendtext2').remove();
 
         
-
         if(dataoption) { 
+
+            debugger;
 
             d3.select('.mainsvg').append('g').
             attr('transform', 'translate(-100,30)').attr('class', 'trendtext').
@@ -1114,8 +1106,6 @@ function draw(data) {
 
             d3.select('.trendtext').append('text').attr('transform','translate(0,20)').
             append('tspan').text('Some of the higher emission countries like ');
-
-            
 
             d3.select('.trendtext').append('text').attr('transform','translate(335,20)').
             append('tspan').text('Qatar, Luxembourg,UAE,Brunei,Kuwait,Bahrain, Hongkong').
@@ -1192,20 +1182,54 @@ function draw(data) {
             d3.select('.trendtext').append('text').attr('transform','translate(-30,360)').
             append('tspan').text('Drilldown on each region to see more focused trends');
 
-           
+        }}
+
+    function add_futurepledge() { 
 
 
-        }
+        var dataoption = d3.selectAll('.dataoption')._groups[0][0].checked;
+        var scaleoption = d3.selectAll('.scaleoption')._groups[0][1].checked;
 
+        d3.select('.trendtext').remove();
+        d3.select('.trendtext2').remove();
+
+        d3.select('.mainsvg').append('g').
+            attr('transform', 'translate(-100,30)').attr('class', 'trendtextfuture').
+            transition().duration(300).attr('transform', 'translate(80,40)');
+
+
+        d3.select('.trendtextfuture').append('text').attr('transform','translate(0,0)').
+            append('tspan').text('This plot shows the projection of emissions for some of the ');
+
+
+        d3.select('.trendtextfuture').append('text').attr('transform','translate(600,0)').
+            append('tspan').text('world countries.');
+
+            d3.select('.trendtextfuture').append('text').attr('transform','translate(0,20)').
+            append('tspan').text('if these countries followed through on their pledge made in 2015.');
+
+            d3.select('.trendtextfuture').append('text').attr('transform','translate(0,50)').
+            append('tspan').text('Major pledges comes from China, India. Eventhough these ');
+
+            d3.select('.trendtextfuture').append('text').attr('transform','translate(0,70)').
+            append('tspan').text('projections seems very positive, these has to be taken with a');
+
+            d3.select('.trendtextfuture').append('text').attr('transform','translate(0,90)').
+            append('tspan').text('pinch of salt and even these are met it is not nearly \
+                enough to');
+
+            d3.select('.trendtextfuture').append('text').attr('transform','translate(0,110)').
+            append('tspan').text('make a dent in the damage already done.');
     }
 
-    
+    function info_trigger_helper(i) { 
 
-    function update(region, i) {
+        if(i === null) {
 
-        clear_ind = false;
+        debugger;
 
-        if (i === 7) {
+        add_general();
+        } else if (i === 7) {
             addsummary_asia();
         } else if (i === 2) {
             addsummary_eastasia();
@@ -1221,9 +1245,39 @@ function draw(data) {
             addsummary_latin();
         } else if(i === 4) { 
             addsummary_easteur();
+        } else if(i === 8) {
+
+            add_futurepledge(); 
+
         } else {
             d3.select('.trendtext').remove();
         }
+
+    }
+
+
+
+    function update(region, i) {
+
+        clear_ind = false;
+
+        d3.select('.trendtextfuture').remove();
+
+        if(d3.selectAll('.dataoption')._groups[0][0].checked) {
+
+            d3.select('#titlediv').text('Co2 Emission for World Countries (Metric tons per capita)');
+         } else {
+
+
+            d3.select('#titlediv').text('Co2 Emission for World Countries (Thousands of Tonnes)');
+
+
+
+         }
+
+        if(d3.select('.infocheckbox')._groups[0][0].checked) {
+            info_trigger_helper(i);
+            }
 
 
         d3.select('#summarytext').remove();
@@ -1248,9 +1302,6 @@ function draw(data) {
         filtered_avg = filtered_avg.sort(function(a, b) {
             return b.avg - a.avg;
         })
-
-        
-        //
 
         regionsdiv.selectAll('div').data(filtered).
         enter().append('div').text(function(each) {
@@ -1424,7 +1475,7 @@ function draw(data) {
 
         d3.select('.infocheckbox').on('change', function() {
 
-            if (this.checked) {
+            if (this.checked) { info_trigger_helper(global_div_index);
                 if (data_type === 'capita' && prevselection === null) {
                     summary_info(average_data, 320, '(per capita)', 1000);
                 } else if (data_type === 'capita' && prevselection !== null) {
@@ -1437,6 +1488,9 @@ function draw(data) {
 
 
             } else {
+
+                d3.select('.trendtext').remove();
+                d3.select('.trendtext2').remove();
 
                 d3.select('#summarytext').remove();
                 d3.select('#summaryheader').remove();
@@ -1462,7 +1516,7 @@ function draw(data) {
                 the corresponding plot line <br><br>\
                 Hover on the circles to reveal year and emission information, hovering on any plot line to highlight it.<br><br>\
                 Click on any country plot line to highlight and choose multiple lines to compare,this can be done by hovering and clicking on country names too<br><br>\
-                <strong>Show Info</strong> - Check this to display additional information<br><br>\
+                <strong>Show Info</strong> - Check this to display additional information and findings for the plot displayed<br><br>\
                 Use the clear button to reset the plot')
                 .style('font-family', 'futura, "Lucida Grande", \
                 "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif');
@@ -1515,8 +1569,7 @@ function draw(data) {
             d3.select('.infocheckbox')._groups[0][0].checked = false;
             d3.select('.countrydiv').remove();
 
-            add_general();
-
+            global_div_index = null;
 
             if (prevselection !== null) {
                 prevselection.style.backgroundColor = null;
@@ -1532,12 +1585,8 @@ function draw(data) {
 
             svg.selectAll('.infopaneshover').remove();
 
-
-
-
             var x_pos = 
 
-        
             prevpath_clicked = d3.select('#' + d.id)
                 .style('stroke-width', 5).style('stroke-opacity', 1);
 
@@ -1560,19 +1609,6 @@ function draw(data) {
 
             d3.selectAll('.infopaneshover').remove();
 
-
-            /*
-
-            if (stateout) {
-
-                if (prevpath !== null && selected_country.style.backgroundColor === "") {
-
-                    prevpath.style('stroke-width', 1).style('stroke-opacity', 1);
-                    prevtext.remove();
-
-                }
-
-            } */
 
             d3.selectAll('.countrypath').style('stroke-opacity',0.2).
             style('stroke-width',1);
@@ -1685,9 +1721,13 @@ function draw(data) {
 
     function update_future(data) { 
 
+        d3.select('#titlediv').text('Co2 Emission for World Countries (Future projections)');
+
 
         d3.select('.trendtext').remove();
         d3.select('.trendtext2').remove();
+
+        info_trigger_helper(global_div_index);
 
 
         d3.select('.mainsvg').selectAll('.countryg').remove();
@@ -1724,7 +1764,7 @@ function draw(data) {
         regionsdiv.selectAll('div').data(countries_f).
         enter().append('div').text(function(each) {
             return each.name + '   -   ' + each.pledge + '%';
-        }).attr('class', 'countrylist').append('input').attr('type','checkbox');
+        }).attr('class', 'countrylist')//.append('input').attr('type','checkbox');
 
 
         var val_min = d3.min(countries_f, function(d) { return d3.min(d.values,function(x) { return x.emission})})
