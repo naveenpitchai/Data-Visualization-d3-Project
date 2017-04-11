@@ -6,7 +6,17 @@ Explanatory data visualization using D3 and dimple
 
 >### Summary : 
 
-This data viz. shows a comprehensive look on co2 emission by world countries between 1970 - 2014. The Co2 emissions are subjective since not every country is made equal and it depends on various factors, so this visulaization looks at the emission in terms of sheer volume in tonnes and emission per capita. Users can interact with the plot by selecting the type of plot, scales and a particular region they wish to analyze. plot can be used to understand the effect of industrial developments in the developed countries and the effect of climate change initiatives in developed countries.  
+This data viz. shows a comprehensive look on co2 emission by world countries between 1970 - 2014. The Co2 emissions are subjective since not every country is made equal and it depends on various factors, so this visulaization looks at the emission in terms of sheer volume in tonnes and emission per capita. Users can interact with the plot by selecting the type of plot, scales and a particular region they wish to analyze. plot can be used to understand the effect of industrial developments in the developed countries and the effect of climate change initiatives in developed countries.
+
+Below summary of insights can be learned from the data and plot
+
+* There was a good correlation between income/capita and emission/capita of world countries.
+
+* There was a correlation between GDP and raw emission tonnage of world countries
+
+* Mainly western europe countries has seen good drop in emission in recent years due to their flight against Global warming
+
+* Some countries like ***Brazil,China,India,Saudi,Iran*** had humble beginnings and grew to be the top polluter,largely due to   the large scale burning of fossil fuels particularly ***Coal*** for energy needs and outdated environmental practice.   
 
 &nbsp;
 
