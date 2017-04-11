@@ -19,6 +19,7 @@ var filtered_avg = null;
 var prevpath_clicked = null;
 var prevcountryclass = null;
 var regionsdiv = null;
+var bool = true;
 
 
 
@@ -183,9 +184,9 @@ function draw(data) {
     //append the each axis groups to the main group
 
 
-    g.append('g').attr('transform', 'translate(0,' + (height + 5) + ')').
-    call(d3.axisBottom(x).tickFormat(d3.format('d'))).append('text').
-    attr('transform', 'translate(' + (width / 2) + ',' + 30 + ')').
+    var xaxis = g.append('g').attr('transform', 'translate(0,' + (height + 5) + ')').
+    call(d3.axisBottom(x).tickFormat(d3.format('d'))).attr('id','xaxis').
+    append('text').attr('transform', 'translate(' + (width / 2) + ',' + 30 + ')').
     text('Years').attr('fill', '#000').attr('class', 'axistext');
 
 
@@ -285,17 +286,18 @@ function draw(data) {
                 return d.id;
             }).on('start', function() {
                 n++;
-                console.log('start ' + n);
+                //console.log('start ' + n);
             })
             .on('end', function() {
                 n--;
                 d3.select(this.parentNode).selectAll('circle').style('fill-opacity', 1);
-                console.log('end ' + n);
+                //console.log('end ' + n);
                 if (n === 0) {
                     if (prevselection !== null && !clear_ind) { //debugger;
                         update(global_region, global_div_index);
                     }
                     eventhandlers();
+                    add_general();
                 }
             })
     } else {
@@ -340,17 +342,16 @@ function draw(data) {
             update(global_region, global_div_index);
         }
 
-        clear_ind = false;
-
         eventhandlers();
+        add_general();
 
     }
 
 
     //circles.append('circle').attr('cx', function(d){  // })
     regions_list = ['Africa', 'Central & North America', 'East Asia & Pacific',
-        'Western Europe', 'Eastern Europe & Asia', 'Middle East', 'South America & Carribean', 'South Asia'
-    ];
+        'Western Europe', 'Eastern Europe & Asia', 'Middle East', 
+        'South America & Carribean', 'South Asia','Future pledges'];
 
     d3.select('#mainregion').append('div').attr('id', 'datadiv');
 
@@ -363,7 +364,7 @@ function draw(data) {
 
 
     sublist = ['africa', 'centralnorthamerica', 'eastasiapacific',
-        'eurasia', 'easteuropeasia', 'middleeast', 'southamericacarb', 'southasia'
+        'eurasia', 'easteuropeasia', 'middleeast', 'southamericacarb', 'southasia',''
     ];
 
 
@@ -373,13 +374,6 @@ function draw(data) {
 
         d3.select('.summarysvg').remove();
 
-
-        if (!d3.selectAll('.dataoption')._groups[0][0].checked &&
-            !d3.selectAll('.scaleoption')._groups[0][1].checked &&
-            global_div_index === 3) {
-
-            return;
-        }
 
         var y = 50;
 
@@ -545,11 +539,54 @@ function draw(data) {
 
             d3.select('.trendtext').append('text').attr('transform', 'translate(0,0)').
             append('tspan').
-            text('Comparison with in the region shows a clear upward trend over the years');
+            text('Almost every country in the region had a clear upward trend of emissions/capita,');
 
             d3.select('.trendtext').append('text').attr('transform', 'translate(0,20)').
             append('tspan').
-            text('Check the Summary info box to see top countries');
+            text('which seems to be reasonable for this highly developing region considering the fact');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,40)').
+            append('tspan').
+            text('these numbers are insignificant compared to the rest of the world.');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,70)').
+            append('tspan').
+            text('Countries like ').append('tspan').text('India,Bangladesh,Sri lanka,Afghanistan ').
+            style('font-style','italic').
+            style('fill','#a50404').style('font-weight','bold');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,90)').
+            append('tspan').
+            text('pledged to reduce their carbon footprint in next 13-17 years in the 2015 Paris agreement.');
+
+            bhu_each = d3.select('.trendtext').append('text').attr('transform', 'translate(0,120)')
+
+            bhu_each.append('tspan').
+            text('Bhutan ').style('font-style','italic').
+            style('fill','#a50404').style('font-weight','bold');
+
+            bhu_each.append('tspan').
+            text('has already become a ');
+
+            bhu_each.append('tspan').text('carbon negative country').style('font-style','italic').
+            style('fill','#a50404').style('font-weight','bold'); 
+
+            bhu_each.append('tspan').text(' due to their amazing afforestation');
+
+        
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,140)').
+            append('tspan').
+            text('efforts and now the forest cover in the country absorb more co2 than it emits.');
+
+            ind_each = d3.select('.trendtext').append('text').attr('transform', 'translate(0,170)')
+
+            ind_each.append('tspan').text('India - ').style('font-style','italic').
+            style('fill','#a50404').style('font-weight','bold');
+
+            ind_each.append('tspan').text('a deceptive case here, although it seems to have insignificant emission/capita')
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,190)').append('tspan')
+            .text('the raw tonnage shows a rapid growth. switch to tonnage plot to see it.')
 
         } else if (!dataoption && !scaleoption) {
 
@@ -670,12 +707,14 @@ function draw(data) {
         d3.select('.trendtext').remove();
         d3.select('.trendtext2').remove();
 
-        d3.select('.mainsvg').append('g').
-        attr('transform', 'translate(-100,50)').attr('class', 'trendtext').
-        transition().duration(500).attr('transform', 'translate(100,120)');
+     
 
 
         if (!dataoption && !scaleoption) {
+
+            d3.select('.mainsvg').append('g').
+            attr('transform', 'translate(-100,50)').attr('class', 'trendtext').
+            transition().duration(500).attr('transform', 'translate(100,120)');
 
 
             each_text = d3.select('.trendtext').append('text')
@@ -692,6 +731,44 @@ function draw(data) {
             append('tspan').text('from 1970 or in recent times, largely due to their increased')
                 .append('tspan').text(' effort on reducing Global warming.').
             style('font-weight', 'bold').style('fill', '#a50404').style('font-style', 'italic');
+
+        }
+
+        if(dataoption) { 
+
+            d3.select('.mainsvg').append('g').
+            attr('transform', 'translate(-100,40)').attr('class', 'trendtext').
+            transition().duration(500).attr('transform', 'translate(200,40)');
+
+            each_text = d3.select('.trendtext').append('text')
+            .attr('transform', 'translate(0,0)');
+
+            each_text.append('tspan').text('The correlation continous here,');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,20)')
+            .append('tspan').text('Highest emission/capita in europe - Luxembourg - also tops the income/capita in among Europeon countries');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,40)')
+            .append('tspan').text('same goes for other countries - Denmark,Germany, Netherlands,Belgium,Finland');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(80,70)')
+            .append('tspan').text('Other than the comparisons with in the region, the emission/capita trend');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(110,90)')
+            .append('tspan').text('was on a decline for most of the countries in the recent years,');
+
+            
+            d3.select('.trendtext').append('text').attr('transform', 'translate(140,110)')
+            .append('tspan').text('majorly due to the increased efforts to cutback emissions.');
+
+             
+
+
+
+
+
+
+
 
         }
 
@@ -712,6 +789,12 @@ function draw(data) {
         attr('transform', 'translate(2000,50)').attr('class', 'trendtext').
         transition().duration(500).attr('transform', 'translate(300,300)');
 
+        d3.select('.mainsvg').append('g').
+        attr('transform', 'translate(-200,50)').attr('class', 'trendtext2').
+        transition().duration(500).attr('transform', 'translate(70,40)');
+
+
+ 
 
         if (!dataoption && !scaleoption) {
 
@@ -721,6 +804,19 @@ function draw(data) {
 
             d3.select('.trendtext').append('text').attr('transform', 'translate(0,20)').
             append('tspan').text('and steadily increased than the rest of the countries');
+
+            d3.select('.trendtext2').append('text').attr('transform','translate(0,0)').
+            append('tspan').text('South Africa -').style('font-weight', 'bold').
+            style('fill', '#a50404').style('font-style', 'italic');
+
+            d3.select('.trendtext2').append('text').attr('transform','translate(125,0)').
+            append('tspan').text('The top contributor in the region generates 90% of its electricity burning coal.');
+
+            d3.select('.trendtext2').append('text').attr('transform','translate(0,50)').
+            append('tspan').text('Generally African countries had much lower emissions than rest of the world');
+
+            d3.select('.trendtext2').append('text').attr('transform','translate(0,70)').
+            append('tspan').text('the highest tonne emission has not crossed the 500k mark.')
 
         }
 
@@ -737,7 +833,7 @@ function draw(data) {
 
         d3.select('.mainsvg').append('g').
         attr('transform', 'translate(2000,50)').attr('class', 'trendtext').
-        transition().duration(500).attr('transform', 'translate(70,40)');
+        transition().duration(500).attr('transform', 'translate(80,200)');
 
 
         if (!dataoption && !scaleoption) {
@@ -753,6 +849,31 @@ function draw(data) {
             d3.select('.trendtext').append('text').attr('transform', 'translate(0,40)').
             append('tspan').text('had an upward trend,both emission and the spike was minimal.');
 
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,70)').
+            append('tspan').text('Emission of US, ').
+            style('font-weight', 'bold').style('fill', '#a50404').style('font-style','italic');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(120,70)').
+            append('tspan').text('as it can be seen, have been historically high, but considering the economical growth,');
+
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,90)').
+            append('tspan').text('the increase on the emissions has been moderate so to speak \
+                and fell in the recent years due to the actions');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,110)').
+            append('tspan').text('against global warming.');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,140)').
+            append('tspan').text('Despite being an oil rich country,').append('tspan').text('Canada ').
+            style('font-weight', 'bold').style('fill', '#a50404').style('font-style','italic');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(320,140)').
+            append('tspan').text('managed to have the emissions under check and')
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,160)').
+            append('tspan').text('that could be attributed to its low population');
+
         }
 
     }
@@ -767,12 +888,13 @@ function draw(data) {
         d3.select('.trendtext').remove();
         d3.select('.trendtext2').remove();
 
-        d3.select('.mainsvg').append('g').
-        attr('transform', 'translate(-100,50)').attr('class', 'trendtext').
-        transition().duration(500).attr('transform', 'translate(100,80)');
 
 
         if (!dataoption && scaleoption) {
+
+            d3.select('.mainsvg').append('g').
+            attr('transform', 'translate(-100,50)').attr('class', 'trendtext').
+            transition().duration(500).attr('transform', 'translate(100,80)');
 
             d3.select('.trendtext').append('text').attr('transform', 'translate(0,0)').
             append('tspan').text('Compared to other countries in the world, \
@@ -784,6 +906,10 @@ function draw(data) {
 
         } else if (!dataoption && !scaleoption) {
 
+            d3.select('.mainsvg').append('g').
+            attr('transform', 'translate(-100,50)').attr('class', 'trendtext').
+            transition().duration(500).attr('transform', 'translate(100,80)');
+
 
             d3.select('.trendtext').append('text').attr('transform', 'translate(0,0)').
             append('tspan').html('Almost all of Middle east countries had a constant \
@@ -791,6 +917,40 @@ function draw(data) {
 
             d3.select('.trendtext').append('text').attr('transform', 'translate(0,20)').
             append('tspan').html('Iran and Saudi, both had a extremely steep increase over the years');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,50)').
+            append('tspan').html('Iran & Saudi ').style('font-weight', 'bold').style('fill', '#a50404')
+            .append('tspan').text('had a explosive CO2 emission mainly due to its \
+                oil, gas and petrochemical industries');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,70)').
+            append('tspan').html('It had taken measures in 2014 to cut the consumption of fossil fuels.');
+
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,20)').
+            append('tspan').html('Iran and Saudi, both had a extremely steep increase over the years');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,100)').
+            append('tspan').html('Generally the middleeast region is known for their oil industry,');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,120)').
+            append('tspan').html('thus can be seen a consistent increase in emissions over the years.');
+
+        } else if(dataoption) { 
+
+            d3.select('.mainsvg').append('g').
+            attr('transform', 'translate(-100,50)').attr('class', 'trendtext').
+            transition().duration(500).attr('transform', 'translate(150,40)');
+
+            d3.select('.trendtext').append('text').attr('transform','translate(0,0)').
+            append('tspan').text('Some of the richest countries in the world - \
+                Qatar,UAE,Kuwait,Saudi Arabia had the highest emission/capita,')
+
+            d3.select('.trendtext').append('text').attr('transform','translate(0,20)').
+            append('tspan').text('further confirming the trend.')
+
+
+
 
         }
 
@@ -806,12 +966,14 @@ function draw(data) {
         d3.select('.trendtext').remove();
         d3.select('.trendtext2').remove();
 
-        d3.select('.mainsvg').append('g').
-        attr('transform', 'translate(-100,50)').attr('class', 'trendtext').
-        transition().duration(500).attr('transform', 'translate(100,50)');
+        
 
 
         if (!dataoption && !scaleoption) {
+
+            d3.select('.mainsvg').append('g').
+            attr('transform', 'translate(-100,50)').attr('class', 'trendtext').
+            transition().duration(500).attr('transform', 'translate(100,50)');
 
             d3.select('.trendtext').append('text').attr('transform', 'translate(0,0)').
             append('tspan').html('Latin america, with its large concentration of developing countries,')
@@ -822,11 +984,226 @@ function draw(data) {
             append('tspan').html('Especially Brazil,Venezuela,Argentina,Colombia,Chile has seen the highest \
                 increase of any countries');
 
+            ven_text = d3.select('.trendtext').append('text').
+            attr('transform', 'translate(0,80)')
+
+            ven_text.append('tspan').text('Venezuela').style('font-style','italic').
+            style('fill','#a50404').style('font-weight','bold');
+
+            ven_text.append('tspan').text(' has pledged to cutdown its emissions')
+
+            ven_text.append('tspan').text(' 20% by 2030 in 2015').style('font-style','italic').
+            style('fill','#a50404').style('font-weight','bold');
+
+
+            braz_text = d3.select('.trendtext').append('text').
+            attr('transform', 'translate(0,100)')
+
+            braz_text.append('tspan').text('Brazil').style('font-style','italic').
+            style('fill','#a50404').style('font-weight','bold');
+
+            braz_text.append('tspan').text(' has pledged to cutdown its emissions')
+
+            braz_text.append('tspan').text(' 37% by 2025 in 2015').style('font-style','italic').
+            style('fill','#a50404').style('font-weight','bold');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,160)').
+            text("For more pledges by countries, checkout the 'Future Pledges' section")
+
+
+        }
+
+        if(dataoption) { 
+
+            d3.select('.mainsvg').append('g').
+            attr('transform', 'translate(-100,50)').attr('class', 'trendtext').
+            transition().duration(500).attr('transform', 'translate(220,50)');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(0,0)').
+            append('tspan').text('Surprise contenders here - ');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(210,0)').
+            append('tspan').text('Aruba and Trinidad & Tobago.').style('font-style','italic').
+            style('fill','#a50404').style('font-weight','bold');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(430,0)').
+            append('tspan').text(' These two tiny countries had');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(15,20)').
+            append('tspan').text('per capita emissions rivaling some big countries in the world.');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(15,50)').
+            append('tspan').text('Aruba mainly due to its fossil fuel burning and T&T due \
+                to its fossil fuels and');
+
+            d3.select('.trendtext').append('text').attr('transform', 'translate(40,70)').
+            append('tspan').text('the cement manufacturing industry.')
+
+
+            
         }
 
     }
 
+
+    function addsummary_easteur() { 
+
+
+        var dataoption = d3.selectAll('.dataoption')._groups[0][0].checked;
+        var scaleoption = d3.selectAll('.scaleoption')._groups[0][1].checked;
+
+        d3.select('.trendtext').remove();
+        d3.select('.trendtext2').remove();
+
+        d3.select('.mainsvg').append('g').
+        attr('transform', 'translate(-100,30)').attr('class', 'trendtext').
+        transition().duration(500).attr('transform', 'translate(100,40)');
+
+        if(dataoption) {
+
+
+        d3.select('.trendtext').append('text').attr('transform','translate(0,0)').
+        append('tspan').text('Russia,Poland,Mongolia,Turkey').style('font-style','italic').
+            style('fill','#a50404').style('font-weight','bold'); 
+
+
+
+        d3.select('.trendtext').append('text').attr('transform','translate(0,20)').
+        append('tspan').text('some of the top contributors in the region attribute');
+
+        d3.select('.trendtext').append('text').attr('transform','translate(0,40)')
+        .append('tspan').text('it mainly to fossil fuel burning for energy.');
+
+
+
+        } else if(!dataoption) { 
+
+            d3.select('.trendtext').append('text').attr('transform','translate(0,0)').
+            append('tspan').text('In terms of pure tonnage, Russia standsout from rest of the region');
+
+
+            d3.select('.trendtext').append('text').attr('transform','translate(0,30)').
+            append('tspan').text('Ukraine,Romania,Poland,Bulgaria - All had a downward trend');
+
+            d3.select('.trendtext').append('text').attr('transform','translate(0,50)').
+            append('tspan').text('which is good news and many countries pledged cutbacks.');
+
+        }}
+
+
+    function add_general() { 
+
+
+        var dataoption = d3.selectAll('.dataoption')._groups[0][0].checked;
+        var scaleoption = d3.selectAll('.scaleoption')._groups[0][1].checked;
+
+        d3.select('.trendtext').remove();
+        d3.select('.trendtext2').remove();
+
+        
+
+        if(dataoption) { 
+
+            d3.select('.mainsvg').append('g').
+            attr('transform', 'translate(-100,30)').attr('class', 'trendtext').
+            transition().duration(500).attr('transform', 'translate(170,30)');
+
+            d3.select('.trendtext').append('text').attr('transform','translate(0,0)').
+            append('tspan').text('There is a slight correlation between the income/capita \
+                of countries to its emissions/capita');
+
+            d3.select('.trendtext').append('text').attr('transform','translate(0,20)').
+            append('tspan').text('Some of the higher emission countries like ');
+
+            
+
+            d3.select('.trendtext').append('text').attr('transform','translate(335,20)').
+            append('tspan').text('Qatar, Luxembourg,UAE,Brunei,Kuwait,Bahrain, Hongkong').
+            style('font-style','italic').
+            style('fill','#a50404').style('font-weight','bold');
+
+            d3.select('.trendtext').append('text').attr('transform','translate(0,40)').
+            append('tspan').text('ranks higher up the income/capita lists. select each region to learn more..');
+
+
+
+        }
+
+        if(!dataoption) { 
+
+            d3.select('.mainsvg').append('g').
+            attr('transform', 'translate(-100,30)').attr('class', 'trendtext').
+            transition().duration(300).attr('transform', 'translate(100,30)');
+
+            d3.select('.trendtext').append('text').attr('transform','translate(0,0)').
+            append('tspan').text('A whole another story can be seen when looking at \
+                the raw emission tonnage for the world countries.');
+
+            d3.select('.trendtext').append('text').attr('transform','translate(0,30)').
+            append('tspan').text("Some of the world's biggest countries both \
+                economically and geographically has been the");
+
+            d3.select('.trendtext').append('text').attr('transform','translate(0,50)').
+            append('tspan').text("biggest polluters. There is a even more stronger \
+                correlation between GDP and the emissions.");
+
+            d3.select('.trendtext').append('text').attr('transform','translate(0,80)').
+            append('tspan').text("Ofcourse the trend has not been same over the years,");
+
+            each_text = d3.select('.trendtext').append('text').attr('transform','translate(0,100)')
+
+            each_text.append('tspan').text("China ").style('font-style','italic').
+            style('fill','#a50404').style('font-weight','bold');
+
+            each_text.append('tspan').text(", started with mere million tonnes has eventually \
+                grew over 1000% over the years mainly due")
+
+            d3.select('.trendtext').append('text').attr('transform','translate(0,120)').
+            append('tspan').text("to its aggressive manufacturing practice and use of coal for energy.");
+
+            each_text2 = d3.select('.trendtext').append('text').attr('transform','translate(0,150)')
+
+            each_text2.append('tspan').text("United States ").style('font-style','italic').
+            style('fill','#a50404').style('font-weight','bold');
+
+            each_text2.append('tspan').text(",on the other hand, started big way back in \
+                1970, way more than any country at that time,")
+
+
+            d3.select('.trendtext').append('text').attr('transform','translate(0,170)').
+            append('tspan').text("and had a very moderate growth over the years and drops \
+                in the recent years.");
+
+            d3.select('.trendtext').append('text').attr('transform','translate(-30,290)')
+            .append('tspan').text("Other countries had nt had as nearly as dramatic trend as \
+                China and US.");
+
+            each_text3 = d3.select('.trendtext').append('text').attr('transform','translate(-30,320)');
+
+            each_text3.append('tspan').text("Major economies such as ");
+
+            each_text3.append('tspan').text("Japan,Germany,UK,France,India,Russia").
+            style('font-style','italic').
+            style('fill','#a50404').style('font-weight','bold');
+
+            d3.select('.trendtext').append('text').attr('transform','translate(-30,340)').
+            append('tspan').text('had an upward trend and some even managed to reduce it in the recent years.');
+
+            d3.select('.trendtext').append('text').attr('transform','translate(-30,360)').
+            append('tspan').text('Drilldown on each region to see more focused trends');
+
+           
+
+
+        }
+
+    }
+
+    
+
     function update(region, i) {
+
+        clear_ind = false;
 
         if (i === 7) {
             addsummary_asia();
@@ -842,6 +1219,8 @@ function draw(data) {
             addsummary_meast();
         } else if (i === 6) {
             addsummary_latin();
+        } else if(i === 4) { 
+            addsummary_easteur();
         } else {
             d3.select('.trendtext').remove();
         }
@@ -884,10 +1263,6 @@ function draw(data) {
 
             summary_info(filtered_avg, 100, '', 1000);
         }
-
-
-
-
 
 
         var filtered_y_min = d3.min(filtered, function(d) {
@@ -1006,7 +1381,15 @@ function draw(data) {
 
         this.style.backgroundColor = '#42d7f4';
 
-        update(d, i);
+        debugger;
+
+        if(i === 8) { 
+
+            d3.csv('data/Co2-emission-kt_future.csv', update_future);
+
+        } else {update(d, i); }
+
+        
 
     })
 
@@ -1128,9 +1511,11 @@ function draw(data) {
         d3.select('#clearimg').on('click', function() {
             
             d3.selectAll('.dataoption')._groups[0][0].checked = true;
-            d3.selectAll('.scaleoption')._groups[0][1].checked = true;
+            d3.selectAll('.scaleoption')._groups[0][0].checked = true;
             d3.select('.infocheckbox')._groups[0][0].checked = false;
             d3.select('.countrydiv').remove();
+
+            add_general();
 
 
             if (prevselection !== null) {
@@ -1296,5 +1681,91 @@ function draw(data) {
     d3.select('#loaderimage').style('opacity', 0);
 
     d3.select('.mainsvg').style('opacity', 1);
+
+
+    function update_future(data) { 
+
+
+        d3.select('.trendtext').remove();
+        d3.select('.trendtext2').remove();
+
+
+        d3.select('.mainsvg').selectAll('.countryg').remove();
+
+        var countries_f = data.map(function(each) {  
+
+            return { 
+
+                id: each.Country_code,
+                name: each.Country_name,
+                avg: each.average,
+                pledge: each.pledge,
+                values: data.columns.slice(5).map(function(d) { 
+
+                    return { 
+
+                        year: +d,
+                        emission: (+each[d]/1000) 
+
+                    }})
+
+            }})
+
+
+        d3.select('#summarytext').remove();
+        d3.select('#summaryheader').remove();
+        d3.select('#summaryg').remove();
+
+        d3.select('.countrydiv').remove();
+
+        regionsdiv = d3.select('#datadiv').append('div').
+        attr('class', 'countrydiv');
+
+        regionsdiv.selectAll('div').data(countries_f).
+        enter().append('div').text(function(each) {
+            return each.name + '   -   ' + each.pledge + '%';
+        }).attr('class', 'countrylist').append('input').attr('type','checkbox');
+
+
+        var val_min = d3.min(countries_f, function(d) { return d3.min(d.values,function(x) { return x.emission})})
+
+        var val_max = d3.max(countries_f, function(d) { return d3.max(d.values,function(x) { return x.emission})})
+
+        var y_fut = d3.scaleLinear().domain([val_min,val_max]).range([height,0]);
+        var x_fut = d3.scaleLinear().domain([1987,2030]).range([0,width]);
+
+        var line_future = d3.line().defined(function(d) {
+            return !isNaN(d.emission);
+        }).
+        x(function(d) { return x_fut(d.year)}).
+        y(function(d) { return y_fut(d.emission)});
+
+        debugger;
+
+        d3.select('#xaxis').call(d3.axisBottom(x_fut).tickFormat(d3.format('d')))
+
+        d3.select('#yaxis').call(d3.axisLeft(y_fut))
+
+
+        var future_g = d3.select('.main_g').selectAll('.countryg').
+        data(countries_f, function(d) { return d.id}).
+        enter().append('g').attr('class','line countryg')
+
+        debugger;
+
+        future_g.append('path').attr('d', function(d) { return line_future(d.values)}).
+        attr('class','countrypath').attr('id', function(d) { return d.id}).
+        style('stroke', function(d) { return z(d.id)})
+
+        future_g.selectAll('circle').data(function(d) { return d.values}).enter().append('circle').
+        attr('r', function(d) { return circleNaNcheck(d)}).attr('cx', line_future.x()).attr('cy', line_future.y()).
+        style('fill', function(d) { return this.parentNode.childNodes[0].style.stroke }).
+        attr('class','countrycircles')
+
+        eventhandlers();
+
+        add_future();
+
+    }
 
 }
