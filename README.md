@@ -31,7 +31,7 @@ Summary info - Summary info was created to provide a summary of a particular reg
 
 Help Info - This decision was made to provide users on information to make most out of the plot and various animations it uses to get the point across. 
 
->### Feedback :
+>### **Feedback :**
 
 1. The plot has too many lines to dissect and access a particular line of a country, emission value in a particular year. 
 
