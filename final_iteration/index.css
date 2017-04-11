@@ -142,11 +142,60 @@ position: absolute;*/
   padding: 2px;
 }
 
+
+
 img#clearimg:hover + .tooltips {
   visibility: visible;
   transform: translate(600px,-25px);
   font-family: futura, "Lucida Grande", "Lucida Sans Unicode",
 Helvetica, Arial, Verdana, sans-serif;
+}
+
+.infotip {
+
+  position: absolute;
+  opacity: 0;
+  background-color: #bab4ae;
+  transform: translate(400px,-25px);
+  font-family: futura, "Lucida Grande", "Lucida Sans Unicode",
+Helvetica, Arial, Verdana, sans-serif;
+-webkit-animation-name : infoanim;
+-webkit-animation-duration : 10s;
+animation-name : infoanim;
+animation-duration: 10s;
+
+}
+
+@-webkit-keyframes infoanim { 
+
+    0% {left:0px; opacity: 1;}
+    5%   {left:20px; opacity: 0.5;}
+    15%   {left:0px; opacity: 1;}
+    25%   {left:20px; opacity: 0.5;}
+    35%   {left:0px; opacity: 1;}
+    45%   {left:20px; opacity: 0.5;}
+    55%   {left:0px; opacity: 1;}
+    65%   {left:20px; opacity: 0.5;}
+    75%   {left:0px; opacity: 1;}
+    85%  {left:20px;opacity: 0.5;}
+    95%  {left:0px;opacity: 1;}
+    100% {opacity: 0.5;}
+}
+
+@-webkit-keyframes infoanim { 
+
+    0% {left:0px; opacity: 1;}
+    5%   {left:20px; opacity: 0.7;}
+    15%   {left:0px; opacity: 1;}
+    25%   {left:20px; opacity: 0.7;}
+    35%   {left:0px; opacity: 1;}
+    45%   {left:20px; opacity: 0.7;}
+    55%   {left:0px; opacity: 1;}
+    65%   {left:20px; opacity: 0.7;}
+    75%   {left:0px; opacity: 1;}
+    85%  {left:20px;opacity: 0.7;}
+    95%  {left:0px;opacity: 1;}
+    100% {opacity: 0.7;}
 }
 
 #helpg { font-size: 15px; color: #a30404;}
